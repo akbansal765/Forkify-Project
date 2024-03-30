@@ -141,6 +141,10 @@ try{
 }
 }
 
+const akash =function(){
+  console.log('Hello Akash');
+}
+
 const init = function() {
   bookmarksView.addHandlerRender(controlBookmarks);
   recipeView.addHandlerRender(controlRecipes);
@@ -150,7 +154,7 @@ const init = function() {
   paginationView.addHandlerClick(controlPagination);
   addRecipeView.addHandlerUpload(controlAddRecipe);
   //controlServings()   here we cannot call this function cause it will give an error cause no recipe has fetched from API this time
-
+  akash();
 }
 init();
 
