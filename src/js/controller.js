@@ -130,6 +130,7 @@ try{
   // Change ID in URL
   window.history.pushState(null, '', `#${model.state.recipe.id}`);
 
+
   // Close form window
   setTimeout(function(){
     addRecipeView.toggleWindow()
@@ -141,8 +142,8 @@ try{
 }
 }
 
-const akash =function(){
-  console.log('Hello Akash');
+const controlIngredientFormat = function(data, i){
+    model.checkIngredientFormat(data, i);
 }
 
 const init = function() {
@@ -153,8 +154,8 @@ const init = function() {
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);
   addRecipeView.addHandlerUpload(controlAddRecipe);
+  addRecipeView.addHandlerIngredientFormat(controlIngredientFormat)
   //controlServings()   here we cannot call this function cause it will give an error cause no recipe has fetched from API this time
-  akash();
 }
 init();
 
