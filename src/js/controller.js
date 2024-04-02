@@ -142,13 +142,10 @@ try{
 }
 }
 
-<<<<<<< HEAD
-=======
 const controlIngredientFormat = function(data, i){
     model.checkIngredientFormat(data, i);
 }
 
->>>>>>> new-akash2
 const init = function() {
   bookmarksView.addHandlerRender(controlBookmarks);
   recipeView.addHandlerRender(controlRecipes);

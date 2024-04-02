@@ -164,8 +164,6 @@ export const uploadRecipe = async function(newRecipe){
 } catch(err){
     throw err;
 }
-<<<<<<< HEAD
-=======
 }
 
 export const checkIngredientFormat = function(dataAr, i){
@@ -183,8 +181,5 @@ export const checkIngredientFormat = function(dataAr, i){
         if(data[i].length !== 3) {
             console.log('wrong format');
             alert(`Wrong Ingredient Format! Please separte the Ingredient-${i + 1} with two commas!`);
-        }
-
-    
->>>>>>> new-akash2
+        }    
 }
