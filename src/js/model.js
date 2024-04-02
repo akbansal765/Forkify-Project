@@ -40,7 +40,7 @@ export const loadRecipe = async function(id){
    state.recipe.bookmarked = true;
    else state.recipe.bookmarked = false;
 
-   console.log(state.recipe);
+//    console.log(state.recipe);
 }catch(err){
     // temp error handling
     console.error(`${err} 😝😜😝😜`);
@@ -164,4 +164,27 @@ export const uploadRecipe = async function(newRecipe){
 } catch(err){
     throw err;
 }
+<<<<<<< HEAD
+=======
+}
+
+export const checkIngredientFormat = function(dataAr, i){
+    
+        const dataArr = dataAr.filter(entry => entry[0].startsWith('ingredient'))
+        console.log(dataArr)
+
+        const data = dataArr.map(ing => ing[1].split(','))
+        
+        console.log(data)
+        console.log(i)
+        if(!data[i]) return;
+        // if(data[i - 1].includes('') ) return;
+        if(data[i].includes('') && data[i].length === 1) return;
+        if(data[i].length !== 3) {
+            console.log('wrong format');
+            alert(`Wrong Ingredient Format! Please separte the Ingredient-${i + 1} with two commas!`);
+        }
+
+    
+>>>>>>> new-akash2
 }

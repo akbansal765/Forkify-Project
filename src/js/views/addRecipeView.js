@@ -3,6 +3,7 @@ import View from './View';
 // Have to import this file to controller, otherise controller will never execute this file and this new AddRecipeView object will never be created and the event listener in addhandlershowwindow will never be added
 
 class AddRecipeView extends View {
+
     _parentElement = document.querySelector('.upload');
     _message = 'Recipe was sucessfully uploaded!';
 
@@ -11,10 +12,17 @@ class AddRecipeView extends View {
     _btnOpen = document.querySelector('.nav__btn--add-recipe');
     _btnClose = document.querySelector('.btn--close-modal');
 
+    ingColoumn = Array.from(document.querySelectorAll('.ingredients'))
+
+    
+
     constructor(){
         super();
         this._addHandlerShowWindow();
         this._addHandlerHideWindow();
+        
+        // this.addHandlerIngredientFormat();
+        
     }
 
     toggleWindow(){
@@ -40,6 +48,19 @@ class AddRecipeView extends View {
             
         })
     }
-    
+
+    addHandlerIngredientFormat(handler){
+        this.ingColoumn.forEach((ing, i) => ing.addEventListener('mouseleave', function(){
+       
+        // getting the value
+        const upload = document.querySelector('.upload');
+        const dataArr = [... new FormData(upload)]
+        handler(dataArr, i);
+        }))
+
+    }
+ 
 }
 export default new AddRecipeView();
+
+
