@@ -154,7 +154,8 @@ const init = function() {
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);
   addRecipeView.addHandlerUpload(controlAddRecipe);
-  addRecipeView.addHandlerIngredientFormat(controlIngredientFormat)
+  
+  // addRecipeView.addHandlerIngredientFormat(controlIngredientFormat)
   //controlServings()   here we cannot call this function cause it will give an error cause no recipe has fetched from API this time
 }
 init();
