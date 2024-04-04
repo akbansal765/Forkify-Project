@@ -132,6 +132,7 @@ const clearBookmarks = function(){
 
 // clearBookmarks();
 
+/*
 export const uploadRecipe = async function(newRecipe){
     try{
     const ingredients = Object.entries(newRecipe)
@@ -149,7 +150,41 @@ export const uploadRecipe = async function(newRecipe){
 
         return {quantity : quantity ? +quantity : null , unit, description}
     })
-    
+    */
+
+export const uploadRecipe = async function(newRecipe){
+    try{
+            const data1 = newRecipe.reduce((acc, cur, i, arr) => {
+            const dataNew = arr.filter(ing => ing[0].startsWith(`ingredient-${i + 1}`) )
+            acc.push(dataNew)
+            return acc;
+            }, []);
+
+            const data2 = data1.slice(0,6)
+            console.log(data2)
+
+            const data3 = data2.map((ing, i) => {
+                return ing.join().split(',')
+
+            });
+            console.log(data3)
+
+            const data4 = data3.map((ing, i) =>{
+                const ingArr = ing.filter(entry => !entry.startsWith(`ingredient`))
+                return ingArr;
+            });
+            console.log(data4)
+
+            const data5 = data4.filter((ing, i, arr) => ing.some(entry => (entry !== ''))) 
+            console.log(data5);
+            // const data5 = data4.filter(item => !data5.includes(item));
+            // console.log(data5);
+
+            const ingredients = data5.map(ing => {
+                const [quantity, unit, description] = ing
+                return {quantity : quantity ? +quantity : null , unit, description}
+            })
+            console.log(ingredients);
     
     const recipe = {
         title: newRecipe.title,
@@ -161,6 +196,8 @@ export const uploadRecipe = async function(newRecipe){
         ingredients,
         
     }
+
+    console.log(recipe);
 
     const data= await AJAX(`${API_URL}?key=${KEY}`, recipe);
     state.recipe = createRecipeObject(data);
