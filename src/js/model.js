@@ -1,4 +1,4 @@
-import { API_URL, RES_PER_PAGE, KEY } from "./config";
+import { API_URL, RES_PER_PAGE, KEY, NUM_INGREDIENTS } from "./config";
 // import { getJSON, sendJSON } from "./helpers";
 import { AJAX } from "./helpers";
 
@@ -165,7 +165,7 @@ export const uploadRecipe = async function(newRecipe){
             return acc;
             }, []);
 
-            const data2 = data1.slice(0,6)
+            const data2 = data1.slice(0, NUM_INGREDIENTS);
             // console.log(data2)
 
             const data3 = data2.map((ing, i) => {
