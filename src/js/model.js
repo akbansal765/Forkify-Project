@@ -153,27 +153,32 @@ export const uploadRecipe = async function(newRecipe){
     */
 
 export const uploadRecipe = async function(newRecipe){
+    console.log(newRecipe);
     try{
-            const data1 = newRecipe.reduce((acc, cur, i, arr) => {
+            
+            const dataAkash = newRecipe.filter(entry => entry[0].startsWith('ingredient'))
+            console.log(dataAkash)
+
+            const data1 = dataAkash.reduce((acc, cur, i, arr) => {
             const dataNew = arr.filter(ing => ing[0].startsWith(`ingredient-${i + 1}`) )
             acc.push(dataNew)
             return acc;
             }, []);
 
             const data2 = data1.slice(0,6)
-            console.log(data2)
+            // console.log(data2)
 
             const data3 = data2.map((ing, i) => {
                 return ing.join().split(',')
 
             });
-            console.log(data3)
+            // console.log(data3)
 
             const data4 = data3.map((ing, i) =>{
                 const ingArr = ing.filter(entry => !entry.startsWith(`ingredient`))
                 return ingArr;
             });
-            console.log(data4)
+            // console.log(data4)
 
             const data5 = data4.filter((ing, i, arr) => ing.some(entry => (entry !== ''))) 
             console.log(data5);
@@ -185,7 +190,9 @@ export const uploadRecipe = async function(newRecipe){
                 return {quantity : quantity ? +quantity : null , unit, description}
             })
             console.log(ingredients);
-    
+
+
+    newRecipe = Object.fromEntries(newRecipe)
     const recipe = {
         title: newRecipe.title,
         source_url: newRecipe.sourceUrl,

@@ -43,13 +43,11 @@ class AddRecipeView extends View {
         this._parentElement.addEventListener('submit', function(e){  // here uploading the data will be another API call, so have to create a control function in controller using publisher subsriber patter
         e.preventDefault();
         const dataArr = [... new FormData(this)];        
-        // console.log(dataArr);
-        const data = dataArr.filter(entry => entry[0].startsWith('ingredient'))
-        console.log(data)
-    
-        
+        console.log(dataArr);
+        // const data = Object.fromEntries(dataArr)
+        // console.log(data)
 
-        handler(data);
+        handler(dataArr);
         
         })
     }
