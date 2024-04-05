@@ -1,6 +1,8 @@
-import { API_URL, RES_PER_PAGE, KEY, NUM_INGREDIENTS } from "./config";
+import { API_URL, RES_PER_PAGE, KEY, NUM_INGREDIENTS} from "./config";
 // import { getJSON, sendJSON } from "./helpers";
 import { AJAX } from "./helpers";
+
+import addRecipeView from "./views/addRecipeView";
 
 
 export const state = {
@@ -133,19 +135,25 @@ const clearBookmarks = function(){
 // clearBookmarks();
 
 export const uploadRecipe = async function(newRecipe){
-    console.log(newRecipe);
+    // console.log(newRecipe);
     try{
             
             const dataAkash = newRecipe.filter(entry => entry[0].startsWith('ingredient'))
-            console.log(dataAkash)
+            // console.log(dataAkash)
 
             const data1 = dataAkash.reduce((acc, cur, i, arr) => {
             const dataNew = arr.filter(ing => ing[0].startsWith(`ingredient-${i + 1}`) )
             acc.push(dataNew)
+            // console.log(dataNew) here is the a small bug when we add ingredients more than 9 like 10, 11, 12, these ingredients all get pushed to ingredient 1 cause as per the starswith method ingredient-1 is inluded in ingredients that are greated than 9, we can solve this by taking solution from chatgpt of reduce method
             return acc;
             }, []);
+            console.log(data1);
 
-            const data2 = data1.slice(0, NUM_INGREDIENTS);
+            const bansal = data1.filter(array => array.length !== 0);
+            console.log(bansal);  // we can use this filter method too inplace of slice method we used for extracting the ingredient data so we dont have to use numOfIng in that
+            
+
+            const data2 = data1.slice(0, addRecipeView.numOfIng);
             // console.log(data2)
 
             const data3 = data2.map((ing, i) => {

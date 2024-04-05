@@ -1,4 +1,5 @@
 import View from './View';
+import {NUM_INGREDIENTS} from '../config'
 
 // Have to import this file to controller, otherise controller will never execute this file and this new AddRecipeView object will never be created and the event listener in addhandlershowwindow will never be added
 
@@ -14,6 +15,11 @@ class AddRecipeView extends View {
 
     ingColoumn = Array.from(document.querySelectorAll('.ingredients'))
 
+    onlyIngredients = document.querySelector('.only-ingredients');
+    addIngBtn = document.querySelector('.add_new_ingredient');
+
+    numOfIng = NUM_INGREDIENTS;
+
     
 
     constructor(){
@@ -21,7 +27,10 @@ class AddRecipeView extends View {
         this._addHandlerShowWindow();
         this._addHandlerHideWindow();
         
-        // this.addHandlerIngredientFormat();
+        this.addHandlerAddNewIngredient();
+
+        
+        
         
     }
 
@@ -43,12 +52,10 @@ class AddRecipeView extends View {
         this._parentElement.addEventListener('submit', function(e){  // here uploading the data will be another API call, so have to create a control function in controller using publisher subsriber patter
         e.preventDefault();
         const dataArr = [... new FormData(this)];        
-        console.log(dataArr);
+        // console.log(dataArr);
         // const data = Object.fromEntries(dataArr)
         // console.log(data)
-
         handler(dataArr);
-        
         })
     }
 
@@ -62,6 +69,38 @@ class AddRecipeView extends View {
     //     }))
 
     // }
+
+    addHandlerAddNewIngredient(){
+        this.addIngBtn.addEventListener('click', function(){
+        this.numOfIng++;
+        
+        const markup = `
+                <label>Ingredient ${this.numOfIng}</label>
+                    <div class="ingredient_box">
+                    <input
+                        class="ing_box"
+                        type="text"
+                        name="ingredient-${this.numOfIng}"
+                        placeholder="Quantity"
+                    />
+                    <input
+                        class="ing_box"
+                        type="text"
+                        name="ingredient-${this.numOfIng}"
+                        placeholder="Unit"
+                    />
+                    <input
+                        class="ing_box"
+                        type="text"
+                        name="ingredient-${this.numOfIng}"
+                        placeholder="Description"
+                    />
+                    </div>
+                `
+        
+        this.onlyIngredients.insertAdjacentHTML('beforeend', markup);
+        }.bind(this))
+    }
  
 }
 export default new AddRecipeView();

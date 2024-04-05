@@ -76,3 +76,19 @@ body {
   height: 30px;
   width: 95px;
 }
+
+.only-ingredients{
+  box-sizing: border-box;
+  height: 370px;
+  width: 450px;
+  overflow-y: scroll;
+}
+
+.add_new_ingredient{
+  position: relative;
+  height: 20px;
+  width: 50px;
+  font-size: 20px !important;
+  left: 767px;
+  bottom: 70px;
+}
