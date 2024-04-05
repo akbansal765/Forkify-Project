@@ -142,9 +142,9 @@ try{
 }
 }
 
-const controlIngredientFormat = function(data, i){
-    model.checkIngredientFormat(data, i);
-}
+// const controlIngredientFormat = function(data, i){
+//     model.checkIngredientFormat(data, i);
+// }
 
 const init = function() {
   bookmarksView.addHandlerRender(controlBookmarks);
@@ -156,6 +156,7 @@ const init = function() {
   addRecipeView.addHandlerUpload(controlAddRecipe);
   
   // addRecipeView.addHandlerIngredientFormat(controlIngredientFormat)
+
   //controlServings()   here we cannot call this function cause it will give an error cause no recipe has fetched from API this time
 }
 init();

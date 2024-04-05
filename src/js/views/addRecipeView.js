@@ -52,16 +52,16 @@ class AddRecipeView extends View {
         })
     }
 
-    addHandlerIngredientFormat(handler){
-        this.ingColoumn.forEach((ing, i) => ing.addEventListener('mouseleave', function(){
+    // addHandlerIngredientFormat(handler){
+    //     this.ingColoumn.forEach((ing, i) => ing.addEventListener('mouseleave', function(){
        
-        // getting the value
-        const upload = document.querySelector('.upload');
-        const dataArr = [... new FormData(upload)]
-        handler(dataArr, i);
-        }))
+    //     // getting the value
+    //     const upload = document.querySelector('.upload');
+    //     const dataArr = [... new FormData(upload)]
+    //     handler(dataArr, i);
+    //     }))
 
-    }
+    // }
  
 }
 export default new AddRecipeView();
