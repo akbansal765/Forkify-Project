@@ -36,7 +36,8 @@ const controlRecipes = async function(){
   // Rendering Recipe
 
   recipeView.render(model.state.recipe);  // this data will be transfered to render method in recipewView file to use the data
-
+  
+  
 
   }catch(err){
     recipeView.renderError();
@@ -68,6 +69,10 @@ const controlSearchResults = async function(){
 
       // Render initial pagination buttons
       paginationView.render(model.state.search);
+
+
+     
+      
   }catch(err){
     console.log(err)
   }
@@ -103,6 +108,8 @@ const controlAddBookmark = function(){
 
   // Render bookmarks
   bookmarksView.render(model.state.bookmarks);
+ 
+  
 }
 
 const controlBookmarks = function(){
@@ -141,6 +148,13 @@ try{
   addRecipeView.renderError(err.message);
 }
 }
+
+const controlAddShoppingList = function(){
+  recipeView.addShoppingList()
+
+}
+
+controlAddShoppingList();
 
 // const controlIngredientFormat = function(data, i){
 //     model.checkIngredientFormat(data, i);

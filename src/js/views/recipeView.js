@@ -3,11 +3,16 @@ import icons from 'url:../../img/icons.svg';
 import View from './View';
 import fracty from 'fracty';
 
+import {state} from '../model';
+
 class RecipeView extends View{
     _parentElement = document.querySelector('.recipe');
     _errorMessage = 'We could not find that recipe, Please try another one!';
     _message = '';  // success message
-
+  
+    listBtn = document.querySelector('.add-list-btn');
+    listMessage = document.querySelector('.ing_message');
+    shoppingListContainer = document.querySelector('.shopping__list');
 
     addHandlerRender(handler){
       const array = ['hashchange', 'load'];
@@ -31,6 +36,39 @@ class RecipeView extends View{
         handler();
       })
     }
+
+    addShoppingList(){
+      this._parentElement.addEventListener('click', function(e){
+          const btn = e.target.closest('.add-list-btn');
+          if(!btn) return;
+          btn.addEventListener('click', function(){
+            console.log('hello')
+            console.log(state)
+
+            const ingredients = state.recipe.ingredients
+            // const [quanity , unit, description] = ingredients
+            console.log(ingredients)
+
+            ingredients.forEach(ing => {
+              const markup = `
+              <li class="preview ingredient__name">
+                  <a class="preview__link" href="#">
+                    <div class="preview__data ingredient__name">
+                      <h1 class="preview__name ingredient__name">
+                        ${ing.quantity ? ing.quantity : ''} ${ing.unit} ${ing.description}
+                      </h1>
+                    </div>
+                  </a>
+                </li>
+              `
+              this.shoppingListContainer.insertAdjacentHTML('beforeend', markup);
+            })
+
+          }.bind(this))
+      }.bind(this))
+      }
+
+     
 
    _generateMarkup(){
     return `
@@ -69,7 +107,11 @@ class RecipeView extends View{
                </button>
              </div>
            </div>
- 
+
+           <div class="shopping-list-ingredients">
+             <button class="add-list-btn">Add to List</button>
+           </div>
+
            <div class="recipe__user-generated ${this._data.key ? '' : 'hidden'}">
             <svg>
               <use href="${icons}#icon-user"></use>

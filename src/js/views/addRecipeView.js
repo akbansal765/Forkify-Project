@@ -1,6 +1,7 @@
 import View from './View';
 import {NUM_INGREDIENTS} from '../config'
 
+
 // Have to import this file to controller, otherise controller will never execute this file and this new AddRecipeView object will never be created and the event listener in addhandlershowwindow will never be added
 
 class AddRecipeView extends View {

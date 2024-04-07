@@ -13,8 +13,11 @@ export const state = {
         page : 1,
         resultsPerPage : RES_PER_PAGE, 
     },
-    bookmarks: []
+    bookmarks: [],
+
+    ingredients: []
 };
+console.log(state)
 
 const createRecipeObject = function(data){
     
@@ -219,3 +222,5 @@ export const uploadRecipe = async function(newRecipe){
 //             alert(`Wrong Ingredient Format! Please separte the Ingredient-${i + 1} with two commas!`);
 //         }    
 // }
+
+

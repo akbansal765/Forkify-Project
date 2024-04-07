@@ -92,3 +92,56 @@ body {
   left: 767px;
   bottom: 70px;
 }
+
+// Shoping_list feature
+
+.add-list-btn{
+  height: 30px;
+  width: 100px;
+  border-radius: 20px;
+  border: none;
+  background-color: rgba(238, 67, 5, 0.63);
+}
+
+.ingredients___list {
+  padding: 1rem 0;
+  position: absolute;
+  right: -2.5rem;
+  z-index: 10;
+  width: 40rem;
+  background-color: #fff;
+  box-shadow: 0 0.8rem 5rem 2rem rgba($color-grey-dark-1, 0.1);
+
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.5s 0.2s;
+
+  &__list {
+    list-style: none;
+  }
+
+  &__field {
+    cursor: pointer;
+    padding: 0 4rem;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    transition: all 0.3s;
+
+    &:hover {
+      background-color: $color-grey-light-2;
+    }
+  }
+
+  /* Apply styles only when hovering over .nav__btn--shopping-list */
+  .nav__btn--shopping-list:hover + &,
+  &:hover {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.ingredient__name{
+  list-style-type: none;
+  color: black;
+}
