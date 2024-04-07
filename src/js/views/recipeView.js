@@ -41,6 +41,7 @@ class RecipeView extends View{
       this._parentElement.addEventListener('click', function(e){
           const btn = e.target.closest('.add-list-btn');
           if(!btn) return;
+          
           btn.addEventListener('click', function(){
             console.log('hello')
             console.log(state)

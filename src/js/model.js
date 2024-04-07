@@ -4,7 +4,6 @@ import { AJAX } from "./helpers";
 
 import addRecipeView from "./views/addRecipeView";
 
-
 export const state = {
     recipe: {},
     search: {
@@ -44,6 +43,7 @@ export const loadRecipe = async function(id){
    if(state.bookmarks.some(bookmark => bookmark.id === id))
    state.recipe.bookmarked = true;
    else state.recipe.bookmarked = false;
+
 
 //    console.log(state.recipe);
 }catch(err){

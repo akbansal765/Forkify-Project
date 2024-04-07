@@ -70,7 +70,6 @@ const controlSearchResults = async function(){
       // Render initial pagination buttons
       paginationView.render(model.state.search);
 
-
      
       
   }catch(err){
@@ -85,6 +84,7 @@ const controlPagination = function(goToPage){
 
       // Render NEW initial pagination buttons
       paginationView.render(model.state.search);
+
 }
 
 const controlServings = function(newServings){
@@ -94,6 +94,7 @@ const controlServings = function(newServings){
   // update the recipe view
   // recipeView.render(model.state.recipe);
   recipeView.update(model.state.recipe);
+
 }
 
 const controlAddBookmark = function(){
@@ -149,12 +150,6 @@ try{
 }
 }
 
-const controlAddShoppingList = function(){
-  recipeView.addShoppingList()
-
-}
-
-controlAddShoppingList();
 
 // const controlIngredientFormat = function(data, i){
 //     model.checkIngredientFormat(data, i);
@@ -168,7 +163,7 @@ const init = function() {
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);
   addRecipeView.addHandlerUpload(controlAddRecipe);
-  
+
   // addRecipeView.addHandlerIngredientFormat(controlIngredientFormat)
 
   //controlServings()   here we cannot call this function cause it will give an error cause no recipe has fetched from API this time
