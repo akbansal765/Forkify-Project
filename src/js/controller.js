@@ -6,6 +6,7 @@ import resultsView from './views/resultsView.js';
 import paginationView from './views/paginationView.js';
 import bookmarksView from './views/bookmarksView.js';
 import addRecipeView from './views/addRecipeView.js';
+import shoppingListView from './views/shoppingListView.js';
 
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
@@ -38,7 +39,8 @@ const controlRecipes = async function(){
   recipeView.render(model.state.recipe);  // this data will be transfered to render method in recipewView file to use the data
   
   
-  recipeView.addShoppingList()
+  // rwecipeVie.addShoppingList()
+  shoppingListView.addShoppingList()
 
   // recipeView.renderShoppingListIngredients(recipeView.dataObject);
 
@@ -75,7 +77,7 @@ const controlSearchResults = async function(){
       // Render initial pagination buttons
       paginationView.render(model.state.search);
 
-      recipeView.addShoppingList()
+      // shoppingListView.addShoppingList()
 
       
   }catch(err){
@@ -156,9 +158,9 @@ try{
 }
 }
 
-const controlShoppingList = function(ingredients){
-  recipeView.addList(ingredients);
-}
+// const controlShoppingList = function(ingredients){
+//   recipeView.addList(ingredients);
+// }
 
 // const controlIngredientFormat = function(data, i){
 //     model.checkIngredientFormat(data, i);
@@ -172,7 +174,7 @@ const init = function() {
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);
   addRecipeView.addHandlerUpload(controlAddRecipe);
-  recipeView.addShoppingList(controlShoppingList);
+  // shoppingListView.addShoppingList(controlShoppingList);
 
   // addRecipeView.addHandlerIngredientFormat(controlIngredientFormat)
 
