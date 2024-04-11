@@ -38,12 +38,17 @@ const controlRecipes = async function(){
   recipeView.render(model.state.recipe);  // this data will be transfered to render method in recipewView file to use the data
   
   
+  recipeView.addShoppingList()
+
+  // recipeView.renderShoppingListIngredients(recipeView.dataObject);
+
 
   }catch(err){
     recipeView.renderError();
     console.error(err);
   }
 }
+
 
 // controlRecipes();
 // const array = ['hashchange', 'load'];
@@ -70,7 +75,8 @@ const controlSearchResults = async function(){
       // Render initial pagination buttons
       paginationView.render(model.state.search);
 
-     
+      recipeView.addShoppingList()
+
       
   }catch(err){
     console.log(err)
@@ -150,6 +156,9 @@ try{
 }
 }
 
+const controlShoppingList = function(ingredients){
+  recipeView.addList(ingredients);
+}
 
 // const controlIngredientFormat = function(data, i){
 //     model.checkIngredientFormat(data, i);
@@ -163,6 +172,7 @@ const init = function() {
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);
   addRecipeView.addHandlerUpload(controlAddRecipe);
+  recipeView.addShoppingList(controlShoppingList);
 
   // addRecipeView.addHandlerIngredientFormat(controlIngredientFormat)
 

@@ -9,10 +9,19 @@ class RecipeView extends View{
     _parentElement = document.querySelector('.recipe');
     _errorMessage = 'We could not find that recipe, Please try another one!';
     _message = '';  // success message
+    ings = [];
+    dataObject;
   
     listBtn = document.querySelector('.add-list-btn');
     listMessage = document.querySelector('.ing_message');
     shoppingListContainer = document.querySelector('.shopping__list');
+
+    constructor(){
+      super();
+      this.getIngredientsLocalStorage(); // Fetch ingredients from localStorage
+      this.dataObject ? this.renderShoppingListIngredients() : ''; // Render ingredients if available
+
+    }
 
     addHandlerRender(handler){
       const array = ['hashchange', 'load'];
@@ -37,39 +46,126 @@ class RecipeView extends View{
       })
     }
 
-    addShoppingList(){
-      this._parentElement.addEventListener('click', function(e){
-          const btn = e.target.closest('.add-list-btn');
-          if(!btn) return;
-          
-          btn.addEventListener('click', function(){
-            console.log('hello')
-            console.log(state)
+    addShoppingList(handler){
+      const addButton = this._parentElement.querySelector('.add-list-btn');
+    
+      if (!addButton) return;
+    
+      addButton.addEventListener('click', () => {
+    
+        const ingredients = state.recipe.ingredients;
+        // console.log(ingredients);
+        // console.log(state)
 
-            const ingredients = state.recipe.ingredients
-            // const [quanity , unit, description] = ingredients
-            console.log(ingredients)
+      
+        ingredients.forEach(ing => {
 
-            ingredients.forEach(ing => {
-              const markup = `
-              <li class="preview ingredient__name">
-                  <a class="preview__link" href="#">
-                    <div class="preview__data ingredient__name">
-                      <h1 class="preview__name ingredient__name">
-                        ${ing.quantity ? ing.quantity : ''} ${ing.unit} ${ing.description}
-                      </h1>
-                    </div>
-                  </a>
-                </li>
-              `
-              this.shoppingListContainer.insertAdjacentHTML('beforeend', markup);
-            })
+          const ingId = Math.trunc(Math.random() * 40);
+          ing.ingId = ingId;
 
-          }.bind(this))
-      }.bind(this))
-      }
+          const markup = `
+            <li class="preview ingredient__name akash">
+              <a class="preview__link" href="#">
+                <div class="preview__data ingredient__name">
+                  <h1 class="preview__name ingredient__name">
+                    ${ing.quantity ? ing.quantity : ''} ${ing.unit} ${ing.description}
+                  </h1>
+                  <button id="${ing.ingId}" class="del_ing">del</button>
+                </div>
+              </a>
+            </li>
+          `;
+          this.shoppingListContainer.insertAdjacentHTML('beforeend', markup);
+          this.ings.push(ing)
+        });
 
+        this.setIngredientsLocalStorage();
+        this.getIngredientsLocalStorage();
+        this.deleteIngredientShoppingList(); 
+      });
+    }
+
+    setIngredientsLocalStorage(){
+      // console.log(this.ings)
+      localStorage.setItem("ingredients", JSON.stringify(this.ings));
+    }
+
+    getIngredientsLocalStorage(){
+      const data = localStorage.getItem("ingredients");
+      this.dataObject = JSON.parse(data);
+
+      // this.dataObject.forEach(el => this.ings.push(el));
+
+      // console.log(this.dataObject);
+      // console.log(this.ings);
+    }
+    
+    renderShoppingListIngredients(){
+      this.dataObject.forEach(ing => {
+        const markup = `
+          <li class="preview ingredient__name akash">
+            <a class="preview__link" href="#">
+              <div class="preview__data ingredient__name">
+                <h1 class="preview__name ingredient__name">
+                  ${ing.quantity ? ing.quantity : ''} ${ing.unit} ${ing.description}
+                </h1>
+                <button id="${ing.ingId}" class="del_ing">del</button>
+              </div>
+            </a>
+          </li>
+        `;
+        this.shoppingListContainer.insertAdjacentHTML('beforeend', markup);
+        // this.ings.push(ing)
+      });
+      this.deleteIngredientShoppingList()
+    }
+
+    deleteIngredientShoppingList(){
+      const delIngBtn = document.querySelectorAll('.del_ing');
+      // console.log(delIngBtn);
+
+      delIngBtn.forEach(btn => {
      
+        // const index = this.dataObject.findIndex(el => el.ingId === +btn.getAttribute("id"))
+        const nearIng = btn.closest('.akash')
+
+        btn.addEventListener('click', function(){
+
+          const [elementToBeDeleted] = this.dataObject.filter(el => el.ingId === +btn.getAttribute("id"));
+          console.log(elementToBeDeleted);
+          console.log(elementToBeDeleted.ingId);
+
+          const index = this.dataObject.indexOf(elementToBeDeleted);
+          console.log(index);
+
+          if(index !== -1) {
+
+            this.dataObject.splice(index, 1);
+            nearIng.remove();
+            console.log(this.dataObject);
+            
+          }
+
+          localStorage.setItem("ingredients", JSON.stringify(this.dataObject));
+        
+        }.bind(this));
+
+      })
+
+
+      // removing the ingredient from list only from DOM
+
+      // delIngBtn.forEach(btn => {
+      //   const nearIng = btn.closest('.akash');
+      //   // console.log(nearIng)
+        
+      //   btn.addEventListener('click', function(){
+      //     console.log(nearIng);
+      //     nearIng.remove();
+          
+      //   });
+      // })
+    }
 
    _generateMarkup(){
     return `

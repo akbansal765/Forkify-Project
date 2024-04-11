@@ -13,10 +13,8 @@ export const state = {
         resultsPerPage : RES_PER_PAGE, 
     },
     bookmarks: [],
-
-    ingredients: []
 };
-console.log(state)
+// console.log(state)
 
 const createRecipeObject = function(data){
     
@@ -58,7 +56,7 @@ export const loadSearchResults = async function(query){
 
         state.search.query = query;
         const data = await AJAX(`${API_URL}?search=${query}&key=${KEY}`);
-        console.log(data);
+        // console.log(data);
 
         state.search.results = data.data.recipes.map(rec => {
             return {
@@ -121,7 +119,6 @@ export const deleteBookmark = function(id){
 
     persistBookmarks();
 }
-
 
 
 const init = function(){
