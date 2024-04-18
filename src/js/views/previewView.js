@@ -21,12 +21,11 @@ class PreviewView extends View {
                  <svg>
                   <use href="${icons}#icon-user"></use>
                  </svg>
-               </div>
-            </div>
-            </a>
-        </li>
-        `
-        
+                </div>
+                </div>
+                </a>
+            </li>
+           `
     }
 
 }

@@ -1,4 +1,4 @@
-import { TIMEOUT_SEC } from "./config";
+import { TIMEOUT_SEC , API_KEY} from "./config";
 
 const timeout = function (s) {
   return new Promise(function (_, reject) {
@@ -61,3 +61,46 @@ export const sendJSON = async function(url, uploadData){
 }
 };
 */
+
+import recipeView from "./views/recipeView";
+
+export const spoonacularPost = async function(ingredients){
+  try{
+
+    
+    const caloriesArray = await Promise.all(ingredients.map(async ingObj => {
+      
+      const qt = ingObj.quantity;
+      const unit = ingObj.unit;
+      const disc = ingObj.description;
+      
+      const ingName = [qt, unit, disc].join(' ').replace('  ', ' ');
+      
+      const fetchPro = fetch(`https://api.spoonacular.com/recipes/parseIngredients?ingredientList=${ingName}&includeNutrition=true&apiKey=${API_KEY}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      });
+      const res = await fetchPro;
+      const [data] = await res.json();
+      if(!res.ok) throw new Error(`${data.message} (${res.status})`)
+      // console.log(data)
+      const nutrientsArr = data.nutrition.nutrients;
+      const caloriesObj = nutrientsArr.find(el => el.name === 'Calories').amount;
+      return caloriesObj;
+      
+    }));
+    
+    
+    const caloriesSum = caloriesArray.reduce((acc, cur) => {
+      acc = acc + cur;
+      return Number.parseInt(acc);
+    }, 0)
+    
+    return caloriesSum;
+  }catch(err){
+    recipeView.renderErrorCalorieSum();
+    console.error(err.message)
+  }
+  }

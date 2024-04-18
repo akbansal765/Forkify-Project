@@ -11,6 +11,8 @@ class RecipeView extends View{
   
     listBtn = document.querySelector('.add-list-btn');
 
+    caloriesSum;
+
     addHandlerRender(handler){
       const array = ['hashchange', 'load'];
       array.forEach(ev => window.addEventListener(ev, handler));
@@ -23,8 +25,63 @@ class RecipeView extends View{
         // const updateTo = btn.dataset.updateTo;
         const {updateTo} = btn.dataset;
         if(+updateTo > 0) handler(+updateTo);
+        
    })
     }
+    addHandlerCaloriesSum(sum){
+      const plusButton = this._parentElement.querySelector('.btn_plus');
+      const minusButton = this._parentElement.querySelector('.btn_minus');
+      
+      const calBtn = this._parentElement.querySelector('.total_calories');
+      console.log(calBtn);
+      // setting initial HTML to total calories value
+      if(sum) calBtn.innerHTML = `${sum} cal`;
+      if(!sum) calBtn.innerHTML = 'undefined';
+      
+      this.caloriesSum = sum;
+
+      plusButton.addEventListener('click', function(){
+        // console.log(this)
+        this.caloriesSum = (this.caloriesSum/this._data.servings)*(this._data.servings + 1)
+        console.log(this._data.servings + 1);
+      }.bind(this))
+      
+      
+      minusButton.addEventListener('click', function(){
+        // console.log(this)
+        if(this._data.servings > 1) this.caloriesSum = (this.caloriesSum/this._data.servings)*(this._data.servings - 1)
+      }.bind(this))
+    
+   }
+
+   renderSpinnerCalorieSum(){
+    const calBtn = this._parentElement.querySelector('.total_calories');
+    const markup = `
+    <span class="spinner calorie_spinner">
+        <svg>
+          <use href="${icons}#icon-loader"></use>
+        </svg>
+      </span>
+      `
+    calBtn.innerHTML = '';
+    calBtn.insertAdjacentHTML('beforeend', markup);
+  }
+
+  renderErrorCalorieSum(){
+    const calorieBtn = this._parentElement.querySelector('.calories_sum');
+    const calBtn = this._parentElement.querySelector('.total_calories');
+    const markup = `<div class="error">
+            <div>
+              <svg>
+                <use href="${icons}#icon-alert-triangle"></use>
+              </svg>
+            </div>
+            <p>Unale to calculate the total calories, try for another recipe</p>
+          </div>`
+
+          calBtn.innerHTML = '';
+          calorieBtn.insertAdjacentHTML('beforeend', markup);
+     }
 
     addHandlerAddBookmark(handler){
       this._parentElement.addEventListener('click', function(e){
@@ -59,12 +116,12 @@ class RecipeView extends View{
              <span class="recipe__info-text">servings</span>
  
              <div class="recipe__info-buttons">
-               <button class="btn--tiny btn--update-servings" data-update-to = "${this._data.servings - 1}">
+               <button class="btn--tiny btn--update-servings btn_minus" data-update-to = "${this._data.servings - 1}">
                  <svg>
                    <use href="${icons}#icon-minus-circle"></use>
                  </svg>
                </button>
-               <button class="btn--tiny btn--update-servings" data-update-to = "${this._data.servings + 1}">
+               <button class="btn--tiny btn--update-servings btn_plus" data-update-to = "${this._data.servings + 1}">
                  <svg>
                    <use href="${icons}#icon-plus-circle"></use>
                  </svg>
@@ -92,6 +149,12 @@ class RecipeView extends View{
            <h2 class="heading--2">Recipe ingredients</h2>
            <ul class="recipe__ingredient-list">
            ${this._data.ingredients.map(this._generateMarkupIngredient).join('')}
+
+           <h6 class="heading--2 calories_sum">
+             Total Calories = 
+             <span class="total_calories">${this.caloriesSum} cal</span>
+           </h6>
+
          </div>
  
          <div class="recipe__directions">

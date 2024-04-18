@@ -11,6 +11,8 @@ import shoppingListView from './views/shoppingListView.js';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
+import { spoonacularPost } from './helpers.js';
+
 if(module.hot){
   module.hot.accept();
 }
@@ -38,12 +40,17 @@ const controlRecipes = async function(){
 
   recipeView.render(model.state.recipe);  // this data will be transfered to render method in recipewView file to use the data
   
-  
-  // rwecipeVie.addShoppingList()
+  // shopping List view
   shoppingListView.addShoppingList()
 
-  // recipeView.renderShoppingListIngredients(recipeView.dataObject);
+  // Getting ingredients for calculating calories
+  recipeView.renderSpinnerCalorieSum();
+  
+  const sum = await spoonacularPost(model.state.recipe.ingredients);
 
+  
+  recipeView.addHandlerCaloriesSum(sum);
+  
 
   }catch(err){
     recipeView.renderError();

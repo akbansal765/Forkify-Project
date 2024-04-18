@@ -145,3 +145,22 @@ body {
   list-style-type: none;
   color: black;
 }
+
+.calories_sum{
+  position: relative;
+  font-size: 18px !important;
+  left: 160px;
+  top: 65px;
+  text-transform: unset !important;
+}
+
+.calorie_spinner {
+
+  svg {
+    position: relative;
+    left: 4px;
+    top: 6px;
+    height: 3rem !important;
+    width: 3rem !important;
+  }
+}

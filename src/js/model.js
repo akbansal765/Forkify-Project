@@ -14,7 +14,7 @@ export const state = {
     },
     bookmarks: [],
 };
-// console.log(state)
+console.log(state)
 
 const createRecipeObject = function(data){
     
@@ -219,5 +219,4 @@ export const uploadRecipe = async function(newRecipe){
 //             alert(`Wrong Ingredient Format! Please separte the Ingredient-${i + 1} with two commas!`);
 //         }    
 // }
-
 
